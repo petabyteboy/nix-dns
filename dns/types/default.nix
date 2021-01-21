@@ -7,7 +7,7 @@
 { pkgs }:
 
 {
-  inherit (import ./zone.nix { inherit pkgs; }) zone subzone;
+  inherit (import ./zone.nix { inherit pkgs; }) zone subzone zoneToString;
   record = import ./record.nix { inherit pkgs; };
   records = import ./records { inherit pkgs; };
 }

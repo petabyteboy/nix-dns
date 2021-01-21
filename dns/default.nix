@@ -31,7 +31,7 @@ let
   writeZone = name: zone:
     pkgs.writeTextFile {
       name = "${name}.zone";
-      text = toString (evalZone name zone);
+      text = types.zoneToString name (evalZone name zone);
     };
 in
 

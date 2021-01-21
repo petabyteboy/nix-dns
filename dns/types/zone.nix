@@ -56,6 +56,11 @@ let
       concatStringsSep "\n\n" groups'
       + optionalString (sub != "") ("\n\n" + sub);
 
+  zoneToString = name: zone@{SOA, ...}:
+    ''
+      ${writeRecord name rsubtypes.SOA SOA}
+    '' + writeSubzone name zone + "\n";
+
   zone = types.submodule ({name, ...}: {
     options = {
       SOA = mkOption rec {
@@ -65,19 +70,7 @@ let
         } // type.example;
         description = "SOA record";
       };
-      __toString = mkOption {
-        readOnly = true;
-        visible = false;
-      };
     } // subzoneOptions;
-
-    config = {
-      __toString = zone@{SOA, ...}:
-          ''
-            ${writeRecord name rsubtypes.SOA SOA}
-
-          '' + writeSubzone name zone + "\n";
-    };
   });
 
 in
@@ -85,4 +78,5 @@ in
 {
   inherit zone;
   inherit subzone;
+  inherit zoneToString;
 }
