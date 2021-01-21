@@ -12,7 +12,7 @@ let
 
   defaults = {
     class = "IN";
-    ttl = 24 * 60 * 60;
+    ttl = 60 * 60;
   };
 
   recordType = rsubt:
